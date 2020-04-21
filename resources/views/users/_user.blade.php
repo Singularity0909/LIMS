@@ -1,6 +1,6 @@
 <div class="list-group-item">
   <img class="mr-3" src="{{ $user->gravatar() }}" alt="{{ $user->name }}" width=32>
-  <a href="{{ route('users.show', $user) }}">{{ $user->id }} {{ $user->name }}</a>
+  <a href="{{ route('users.show', $user) }}">{{ $user->id }} - {{ $user->name }}</a>
   <form action="{{ route('users.destroy', $user->id) }}" method="post" class="float-right">
     {{ csrf_field() }}
     {{ method_field('DELETE') }}
