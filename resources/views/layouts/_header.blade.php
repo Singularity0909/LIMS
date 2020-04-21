@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-info">
   <div class="container ">
-    <a class="navbar-brand" href="{{ route('home') }}">LIMS</a>
+    <a class="navbar-brand logo" href="{{ route('home') }}">LIMS</a>
     <ul class="navbar-nav justify-content-end">
       @if (Auth::check())
         @if (in_array(App\Models\User::getRole(Auth::user()), ['Superuser', 'Readers admin']))

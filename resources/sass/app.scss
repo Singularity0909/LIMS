@@ -27,22 +27,17 @@ footer {
   color: #777;
   font-size: 13px;
   font-weight: bold;
-
   a {
     color: #555;
   }
-
   a:hover {
     color: #222;
   }
-
   img.brand-icon {
     width: 17px;
     height: 17px;
   }
 }
-
-/* User gravatar */
 
 section.user_info {
   padding-bottom: 10px;
@@ -79,11 +74,17 @@ section.user_info {
   }
 }
 
+.logo {
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .welcome {
   &:hover {
     opacity: 0.7;
   }
-
   margin-top: 50px;
   opacity: 0.5;
   background: linear-gradient(to right, #3399CC, #00CCFF);
@@ -111,7 +112,6 @@ section.user_info {
 .pay-btn {
   min-width: 100%;
   text-align: left;
-
   &:hover {
     opacity: 0.8;
   }
