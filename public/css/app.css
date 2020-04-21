@@ -10956,6 +10956,10 @@ section.user_info h1 {
   max-width: 100px;
 }
 
+.welcome {
+  margin-top: 50px;
+}
+
 .update-user-btn {
   margin-right: 10px;
 }
