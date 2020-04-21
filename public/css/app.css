@@ -19823,6 +19823,9 @@ section.user_info h1 {
   margin-top: 50px;
   opacity: 0.5;
   background: linear-gradient(to right, #3399CC, #00CCFF);
+  border-style: dashed;
+  border-width: 2px;
+  border-color: white;
 }
 
 .welcome:hover {
