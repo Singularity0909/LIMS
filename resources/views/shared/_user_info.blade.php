@@ -15,6 +15,6 @@
     </form>
   @else
     <li class="list-group-item list-group-item-action">Debt: {{ $user->debt }}</li>
-    <li class="list-group-item">Role: {{ App\Models\User::getRole($user) }}</li>
   @endif
+  <li class="list-group-item">Role: {{ App\Models\User::getRole($user) }}</li>
 </ul>
