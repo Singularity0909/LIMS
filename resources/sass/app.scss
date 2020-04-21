@@ -1,0 +1,94 @@
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+body {
+    font-size: 14px;
+    font-weight: normal;
+    background-image: url(https://cdn.jsdelivr.net/gh/singularity0909/cdn/img/gallery/amazing-landscape-2.jpg);
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+nav.navbar.navbar-expand-lg {
+    margin-bottom: 20px;
+}
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #777;
+  font-size: 13px;
+  font-weight: bold;
+
+  a {
+    color: #555;
+  }
+
+  a:hover {
+    color: #222;
+  }
+
+  img.brand-icon {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+/* User gravatar */
+
+section.user_info {
+  padding-bottom: 10px;
+  margin-top: 20px;
+  text-align: center;
+  .gravatar {
+    float: none;
+    max-width: 70px;
+  }
+  h1 {
+    font-size: 1.4em;
+    letter-spacing: -1px;
+    margin-bottom: 3px;
+    margin-top: 15px;
+  }
+}
+
+.gravatar {
+  float: left;
+  max-width: 50px;
+  border-radius: 50%;
+}
+
+.jumbotron {
+  text-align: center;
+}
+
+.gravatar_edit {
+  margin: 15px auto;
+  text-align: center;
+  .gravatar {
+    float: none;
+    max-width: 100px;
+  }
+}
+
+.update-user-btn {
+  margin-right: 10px;
+}
+
+.create-user-btn {
+  margin-bottom: 20px;
+}
+
+.user-info-list {
+  margin-top: 20px;
+}
+
+.pay-btn {
+  min-width: 100%;
+  text-align: left;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
