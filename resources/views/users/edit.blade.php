@@ -63,7 +63,9 @@
             </div>
           @endif
 
-          <button type="submit" class="btn btn-primary">Modify</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-cog fa-fw fa-lg"></i> Modify
+          </button>
         </form>
     </div>
   </div>

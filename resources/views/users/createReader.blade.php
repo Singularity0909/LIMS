@@ -3,7 +3,7 @@
 
 @section('content')
 <div class="offset-md-2 col-md-8">
-  <div class="card ">
+  <div class="card">
     <div class="card-header">
       <h5>Create a reader</h5>
     </div>
@@ -44,7 +44,9 @@
           <input type="password" name="password_confirmation" class="form-control" value="{{ old('password_confirmation') }}">
         </div>
 
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-plus fa-fw fa-lg"></i> Create
+        </button>
       </form>
     </div>
   </div>

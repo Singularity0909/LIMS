@@ -1,5 +1,11 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+// font-awesome
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+@import "~@fortawesome/fontawesome-free/scss/regular.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/v4-shims.scss";
 
 @font-face {
     font-family: Roboto-Thin;
@@ -17,6 +23,7 @@ body {
 }
 
 nav.navbar.navbar-expand-lg {
+    height: 60px;
     margin-bottom: 20px;
 }
 
@@ -85,6 +92,7 @@ section.user_info {
   &:hover {
     opacity: 0.7;
   }
+  color: #ffff00;
   margin-top: 50px;
   opacity: 0.5;
   background: linear-gradient(to right, #3399CC, #00CCFF);
@@ -93,7 +101,7 @@ section.user_info {
 .title {
   opacity: 1;
   text-shadow: 5px 5px 5px #333333;
-  color: #ffff00;
+  text-align: center;
 }
 
 .update-user-btn {
@@ -101,12 +109,25 @@ section.user_info {
 }
 
 .create-user-btn {
-  margin-bottom: 10px;
-  text-align: left;
+  margin-right: 20px;
+}
+
+.index-title {
+  margin-top: 30px;
+  display: flex;
+}
+
+.index-list {
+  border-style: dashed;
+  border-width: 2px;
+  border-color: gray;
 }
 
 .user-info-list {
   margin-top: 20px;
+  border-style: dashed;
+  border-width: 2px;
+  border-color: gray;
 }
 
 .pay-btn {

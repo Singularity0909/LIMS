@@ -3,11 +3,15 @@
 
 @section('content')
 <div class="offset-md-2 col-md-8">
-  <h2 class="mb-4 text-center title">All administrators</h2>
-  <form action="{{ route('createAdmin') }}" method="get">
-    <button type="submit" class="btn btn-m btn-info create-user-btn">Create</button>
-  </form>
-  <div class="list-group list-group-flush">
+  <div class="index-title">
+    <form action="{{ route('createAdmin') }}" method="get">
+      <button type="submit" class="btn btn-m btn-info create-user-btn">
+        <i class="fa fa-plus"></i> Create</a>
+      </button>
+    </form>
+    <h2 class="mb-4"> All administrators</h2>
+  </div>
+  <div class="list-group list-group-flush index-list">
     @foreach ($users as $user)
       @include('users._user')
     @endforeach
