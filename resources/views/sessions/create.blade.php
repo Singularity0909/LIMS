@@ -30,7 +30,9 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary">Login</button>
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-sign-in fa-fw fa-lg"></i> Login
+          </button>
       </form>
 
       <hr>
