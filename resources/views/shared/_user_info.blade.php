@@ -11,10 +11,10 @@
     <form method="POST" action="{{ route('users.update', $user->id )}}">
       {{ method_field('PATCH') }}
       {{ csrf_field() }}
-      <button type="submit" class="list-group-item active pay-btn" value=1 name="pay">Debt: {{ $user->debt }} (click to pay)</button>
+      <button type="submit" class="list-group-item active pay-btn" value=1 name="pay">Debt: ${{ $user->debt }} (click to pay)</button>
     </form>
   @else
-    <li class="list-group-item list-group-item-action">Debt: {{ $user->debt }}</li>
+    <li class="list-group-item list-group-item-action">Debt: ${{ $user->debt }}</li>
   @endif
   <li class="list-group-item">Role: {{ App\Models\User::getRole($user) }}</li>
 </ul>
