@@ -1,12 +1,19 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+@font-face {
+    font-family: Roboto-Thin;
+    src: url('https://cdn.jsdelivr.net/gh/singularity0909/cdn/fonts/Roboto-Thin.ttf');
+}
+
 body {
     font-size: 14px;
-    font-weight: normal;
+    font-weight: bold;
+    font-family: 'Roboto-Thin';
     background-image: url(https://cdn.jsdelivr.net/gh/singularity0909/cdn/img/gallery/amazing-landscape-2.jpg);
     background-size: cover;
     background-attachment: fixed;
+    background-repeat: no-repeat;
 }
 
 nav.navbar.navbar-expand-lg {
@@ -73,7 +80,19 @@ section.user_info {
 }
 
 .welcome {
+  &:hover {
+    opacity: 0.7;
+  }
+
   margin-top: 50px;
+  opacity: 0.5;
+  background: linear-gradient(to right, #3399CC, #00CCFF);
+}
+
+.title {
+  opacity: 1;
+  text-shadow: 5px 5px 5px #333333;
+  color: #ffff00;
 }
 
 .update-user-btn {
@@ -81,7 +100,8 @@ section.user_info {
 }
 
 .create-user-btn {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  text-align: left;
 }
 
 .user-info-list {
