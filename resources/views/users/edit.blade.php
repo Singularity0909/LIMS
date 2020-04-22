@@ -1,11 +1,11 @@
 @extends('layouts.default')
-@section('title', 'Modify profile')
+@section('title', 'Update profile')
 
 @section('content')
 <div class="offset-md-2 col-md-8">
   <div class="card ">
     <div class="card-header">
-      <h5>Modify profile</h5>
+      <h5>Update profile</h5>
     </div>
       <div class="card-body">
 
@@ -64,7 +64,7 @@
           @endif
 
           <button type="submit" class="btn btn-primary">
-            <i class="fa fa-cog fa-fw fa-lg"></i> Modify
+            <i class="fa fa-cog fa-fw fa-lg"></i> Update
           </button>
         </form>
     </div>

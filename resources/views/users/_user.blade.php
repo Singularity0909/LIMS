@@ -10,7 +10,7 @@
   </form>
   <form action="{{ route('users.edit', $user->id) }}" method="get" class="float-right">
     <button type="submit" class="btn btn-sm btn-secondary update-user-btn">
-      <i class="fa fa-cog"></i> Modify</a>
+      <i class="fa fa-cog"></i> Update</a>
     </button>
   </form>
 </div>

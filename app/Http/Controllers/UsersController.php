@@ -111,7 +111,7 @@ class UsersController extends Controller
         $data['phone'] = $request->phone;
         $user->update($data);
 
-        session()->flash('success', 'Modification succeeded.');
+        session()->flash('success', 'Update succeeded.');
         return redirect()->route('users.show', $user);
     }
 
