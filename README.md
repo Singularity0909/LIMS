@@ -267,8 +267,6 @@ According to the demand analysis, we provide a diagram of the system overall fun
 
 ### Physical framework design
 
-#### Create tables
-
 ```sql
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
