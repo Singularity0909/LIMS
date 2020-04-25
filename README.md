@@ -176,11 +176,11 @@ According to the demand analysis, we provide a diagram of the system overall fun
 
 #### Local entity-relationship diagrams
 
-<img src="https://plantuml-server.kkeisuke.app/svg/bP51RW8n34NtSmfBtO0GTs3LJJVS03aJmrZDn5NYKA6AksCF58QggjHD_6N__vmecwfOj8sfewoi9mWYxnNWgmDO0KTORD-MfjThErw0QyYmUBNMkNjAx3ZlvHwRN4_17fKEKaxNC80b4rd5feCK4nyj9Au3kUxbE5NEMiHdXNitgoWc3nsH4uO9aCJGB7bseTikflhxCpAEDBEtIkKlf-t7MZ-bH9Cqscfl3P9z52de_Hb6ct6JrHksFRWh23-Mk6-7JecDN3mGXRILJF5_cE_KbRMX7Er_Bm00.svg">
+![](https://cdn.jsdelivr.net/gh/singularity0909/cdn@latest/img/screenshot/lims-er-1.png)
 
 #### Global entity-relationship diagrams
 
-<img src="https://plantuml-server.kkeisuke.app/svg/jLGxRiCm3Drr2W5TKWIwGxfqwT8R6BB5ra9bCT0dGP3sxgKKnPOJDq07BoP1lWzf4zxv85s8Ws4CRD3Xn5l4By_vcN6-vLhnpVlRC-L2qEE9QzzQldcbqi-SqMZxWICjesR4JWRuH7Uwa3adfW6ACeOU7INxs1hjUqXvXuSSjGqEKy_fBe431caIwI2raMqMC4ZI6cqrKF7Iu9VNi7A02XuzEDyua8hY0mRD8Rq_ebEKma0Zf5AFDhKKj65SXrJlzFDRUb63jkjvb1rMTl5n3owbApWOYaKsJhfRtjwO95mZaugAa999ma68peBwdyoLLRIg4n82pzMDi-hSXVWkBJO_ein9ualrgnNBomfH5CQvnyhzuKo6brd-G4pJiwN3o9XPWzr-sGfIgJ-2pImOsu5Lz5lv1G00.svg">
+![](https://cdn.jsdelivr.net/gh/singularity0909/cdn@latest/img/screenshot/lims-er-2.png)
 
 ### Logic framework design
 
@@ -188,21 +188,15 @@ According to the demand analysis, we provide a diagram of the system overall fun
 
 - users (<u>id</u>, name, password, email, phone, debt, authority)
 
-
 - books (<u>id</u>, isbn)
-
 
 - books_info (<u>isbn</u>, title, category, author, publisher, cover, intro, price, total, available, location)
 
-
 - categories (<u>id</u>, name)
-
 
 - lent (<u>uid</u>, <u>bid</u>, lent_at, due_at)
 
-
 - returned (<u>uid</u>, <u>bid</u>, lent_at, returned_at)
-
 
 #### Tables with fields
 
