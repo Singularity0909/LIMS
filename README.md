@@ -77,15 +77,15 @@ According to the demand analysis, we provide a diagram of the system overall fun
 | 7      | Authority    | A user's authority to access the system             | Integer          | 1      |
 | 8      | BookID       | To identify a book                                  | Integer          | 10     |
 | 9      | ISBN         | A book's International Standard Book Number         | Character string | 17     |
-| 10     | Title        | A book's title                                      | Character string | 20     |
-| 11     | Author       | Name of a book's author                             | Character string | 20     |
-| 12     | Publisher    | Name of a book's publisher                          | Character string | 20     |
+| 10     | Title        | A book's title                                      | Character string | 50     |
+| 11     | Author       | Name of a book's author                             | Character string | 50     |
+| 12     | Publisher    | Name of a book's publisher                          | Character string | 50     |
 | 13     | Cover        | URL of a book's cover picture                       | Character string | 255    |
 | 14     | Intro        | A book's introduction                               | Character string | 255    |
 | 15     | Price        | A book's price                                      | Decimal          | 10     |
 | 16     | Total        | Total quantity of a book                            | Integer          | 10     |
 | 17     | Available    | Available quantity of a book                        | Integer          | 10     |
-| 18     | Location     | A book's location in the library                    | Character string | 20     |
+| 18     | Location     | A book's location in the library                    | Character string | 50     |
 | 19     | CategoryID   | To identify a category of books                     | Integer          | 10     |
 | 20     | CategoryName | Name of a category of books                         | Character string | 10     |
 | 21     | Lent_at      | Date and time when a user borrow a book             | Timestamp        |        |
@@ -134,7 +134,23 @@ According to the demand analysis, we provide a diagram of the system overall fun
 
 #### Data processes
 
-
+| Number | Name               | Meaning                                                     | Inflows               | Outflows              | Processing logic                                             |
+| ------ | ------------------ | ----------------------------------------------------------- | --------------------- | --------------------- | ------------------------------------------------------------ |
+| 1      | Search for books   | Readers search for books by inputting keywords              | Books base info       | Books detailed info   | System validates readers' account and indexes books by keywords and returns result |
+| 2      | Borrow books       | Readers borrow books by scanning their card and books' code | Books borrowing info  | (Feedback)            | System validates readers' account and inserts lending records into table |
+| 3      | Return books       | Readers return books by scanning their card and books' code | Books returning info  | (Feedback)            | System validates readers' account and inserts returning records into table |
+| 4      | Renew books        | Readers renew books they are keeping                        | Books renewing info   | (Feedback)            | System validates readers' account and updates lending records in the table |
+| 5      | Pay fine           | Readers pay fine for overdue or lost books                  | Payment info          | (Feedback)            | System validates readers' account and updates their debt info in the table |
+| 6      | Create books       | Books admins add information of new or existing books       | New books info        | (Feedback)            | System validates admins' account and inserts new books' records into table |
+| 7      | Update books       | Books admins update information of existing books           | Books update info     | (Feedback)            | System validates admins' account and updates records of books in the table |
+| 8      | Delete books       | Books admins delete information of existing books           | Books deletion info   | (Feedback)            | System validates admins' account and deletes records of books in the table |
+| 9      | Search for readers | Readers admins search for readers by inputting keywords     | Readers basic info    | Readers detailed info | System validates admins' account and indexes readers by keywords and returns result |
+| 10     | Create readers     | Readers admins add information of new readers               | New readers info      | (Feedback)            | System validates admins' account and inserts new readers' records into table |
+| 11     | Update readers     | Readers admins update information existing readers          | Readers update info   | (Feedback)            | System validates admins' account and updates records of readers in the table |
+| 12     | Delete readers     | Readers admins delete information existing readers          | Readers deletion info | (Feedback)            | System validates admins' account and deletes records of readers in the table |
+| 13     | Create admins      | Superuser adds information of new admins                    | New admins info       | (Feedback)            | System validates superuser's account and inserts new admins' records into table |
+| 14     | Update admins      | Superuser updates information existing readers              | Admins update info    | (Feedback)            | System validates superuser's account and updates records of admins in the table |
+| 15     | Delete admins      | Superuser deletes information existing readers              | Admins deletion info  | (Feedback)            | System validates superuser's account and deletes records of admins in the table |
 
 ### Data flow diagrams
 
@@ -153,6 +169,235 @@ According to the demand analysis, we provide a diagram of the system overall fun
 ![](https://cdn.jsdelivr.net/gh/singularity0909/cdn@latest/img/screenshot/lims-dfd-2-2.png)
 
 ![](https://cdn.jsdelivr.net/gh/singularity0909/cdn@latest/img/screenshot/lims-dfd-2-3.png)
+
+## Database design
+
+### Conception framework design
+
+#### Local entity-relationship diagrams
+
+<img src="https://plantuml-server.kkeisuke.app/svg/bP51RW8n34NtSmfBtO0GTs3LJJVS03aJmrZDn5NYKA6AksCF58QggjHD_6N__vmecwfOj8sfewoi9mWYxnNWgmDO0KTORD-MfjThErw0QyYmUBNMkNjAx3ZlvHwRN4_17fKEKaxNC80b4rd5feCK4nyj9Au3kUxbE5NEMiHdXNitgoWc3nsH4uO9aCJGB7bseTikflhxCpAEDBEtIkKlf-t7MZ-bH9Cqscfl3P9z52de_Hb6ct6JrHksFRWh23-Mk6-7JecDN3mGXRILJF5_cE_KbRMX7Er_Bm00.svg">
+
+#### Global entity-relationship diagrams
+
+<img src="https://plantuml-server.kkeisuke.app/svg/jLGxRiCm3Drr2W5TKWIwGxfqwT8R6BB5ra9bCT0dGP3sxgKKnPOJDq07BoP1lWzf4zxv85s8Ws4CRD3Xn5l4By_vcN6-vLhnpVlRC-L2qEE9QzzQldcbqi-SqMZxWICjesR4JWRuH7Uwa3adfW6ACeOU7INxs1hjUqXvXuSSjGqEKy_fBe431caIwI2raMqMC4ZI6cqrKF7Iu9VNi7A02XuzEDyua8hY0mRD8Rq_ebEKma0Zf5AFDhKKj65SXrJlzFDRUb63jkjvb1rMTl5n3owbApWOYaKsJhfRtjwO95mZaugAa999ma68peBwdyoLLRIg4n82pzMDi-hSXVWkBJO_ein9ualrgnNBomfH5CQvnyhzuKo6brd-G4pJiwN3o9XPWzr-sGfIgJ-2pImOsu5Lz5lv1G00.svg">
+
+### Logic framework design
+
+#### Relation schemas
+
+- users (<u>id</u>, name, password, email, phone, debt, authority)
+
+
+- books (<u>id</u>, isbn)
+
+
+- books_info (<u>isbn</u>, title, category, author, publisher, cover, intro, price, total, available, location)
+
+
+- categories (<u>id</u>, name)
+
+
+- lent (<u>uid</u>, <u>bid</u>, lent_at, due_at)
+
+
+- returned (<u>uid</u>, <u>bid</u>, lent_at, returned_at)
+
+
+#### Tables with fields
+
+**users**
+
+| Number | Name      | Meaning                                             | Type    | Length | Primary key |
+| ------ | --------- | --------------------------------------------------- | ------- | ------ | ----------- |
+| 1      | id        | To identify a user                                  | varchar | 15     | ✔           |
+| 2      | name      | A user's personal name                              | varchar | 20     |             |
+| 3      | password  | Secret word for a user to login                     | varchar | 255    |             |
+| 4      | email     | A user's email address                              | varchar | 255    |             |
+| 5      | phone     | A user's phone number                               | varchar | 11     |             |
+| 6      | debt      | A user's fine for overdue borrowing or losing books | decimal | 10     |             |
+| 7      | authority | A user's authority to access the system             | tinyint | 1      |             |
+
+**books**
+
+| Number | Name | Meaning                                     | Type    | Length | Primary key |
+| ------ | ---- | ------------------------------------------- | ------- | ------ | ----------- |
+| 1      | id   | To identify a book                          | int     | 10     | ✔           |
+| 2      | isbn | A book's International Standard Book Number | varchar | 17     |             |
+
+**books_info**
+
+| Number | Name      | Meaning                                     | Type    | Length | Primary key |
+| ------ | --------- | ------------------------------------------- | ------- | ------ | ----------- |
+| 1      | isbn      | A book's International Standard Book Number | varchar | 17     | ✔           |
+| 2      | title     | A book's title                              | varchar | 50     |             |
+| 3      | author    | Name of a book's author                     | varchar | 50     |             |
+| 4      | publisher | Name of a book's publisher                  | varchar | 50     |             |
+| 5      | cover     | URL of a book's cover picture               | varchar | 255    |             |
+| 6      | intro     | A book's introduction                       | varchar | 255    |             |
+| 7      | price     | A book's price                              | decimal | 10     |             |
+| 8      | total     | Total quantity of a book                    | int     | 10     |             |
+| 9      | available | Available quantity of a book                | int     | 10     |             |
+| 10     | location  | A book's location in the library            | varchar | 50     |             |
+
+**categories**
+
+| Number | Name | Meaning                         | Type    | Length | Primary key |
+| ------ | ---- | ------------------------------- | ------- | ------ | ----------- |
+| 1      | id   | To identify a category of books | int     | 10     | ✔           |
+| 2      | name | Name of a category of books     | varchar | 20     |             |
+
+**lent**
+
+| Number | Name    | Meaning                                    | Type      | Length | Primary key |
+| ------ | ------- | ------------------------------------------ | --------- | ------ | ----------- |
+| 1      | uid     | To identify a user                         | varchar   | 15     | ✔           |
+| 2      | bid     | To identify a book                         | int       | 10     | ✔           |
+| 3      | lent_at | Date and time when a user borrow a book    | timestamp |        |             |
+| 4      | due_at  | Due time when a user need to return a book | timestamp |        |             |
+
+**returned**
+
+| Number | Name        | Meaning                                 | Type      | Length | Primary key |
+| ------ | ----------- | --------------------------------------- | --------- | ------ | ----------- |
+| 1      | uid         | To identify a user                      | varchar   | 15     | ✔           |
+| 2      | bid         | To identify a book                      | int       | 10     | ✔           |
+| 3      | lent_at     | Date and time when a user borrow a book | timestamp |        |             |
+| 4      | returned_at | Date and time when a user return a book | timestamp |        |             |
+
+### Physical framework design
+
+#### Create tables
+
+```sql
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+
+DROP TABLE IF EXISTS `books`;
+CREATE TABLE `books` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `isbn` varchar(17) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`),
+  KEY `isbn` (`isbn`),
+  CONSTRAINT `books_fk_1` FOREIGN KEY (`isbn`) REFERENCES `books_info` (`isbn`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `books_info`;
+CREATE TABLE `books_info` (
+  `isbn` varchar(17) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `category` int(10) NOT NULL AUTO_INCREMENT,
+  `author` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `publisher` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `cover` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `intro` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `price` decimal(10,2) NOT NULL,
+  `total` int(10) NOT NULL,
+  `available` int(10) NOT NULL,
+  `location` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`isbn`),
+  KEY `isbn` (`isbn`),
+  KEY `category` (`category`),
+  CONSTRAINT `books_info_fk_1` FOREIGN KEY (`category`) REFERENCES `categories` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE `categories` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `lent`;
+CREATE TABLE `lent` (
+  `uid` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `bid` int(10) NOT NULL AUTO_INCREMENT,
+  `lent_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `due_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`uid`,`bid`),
+  KEY `bid` (`bid`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `lent_fk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `lent_fk_2` FOREIGN KEY (`bid`) REFERENCES `books` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `returned`;
+CREATE TABLE `returned` (
+  `uid` varchar(15) NOT NULL,
+  `bid` int(10) NOT NULL AUTO_INCREMENT,
+  `lent_at` timestamp NULL DEFAULT NULL,
+  `returned_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`uid`,`bid`),
+  KEY `bid` (`bid`),
+  KEY `uid` (`uid`),
+  CONSTRAINT `returned_fk_1` FOREIGN KEY (`uid`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `returned_fk_2` FOREIGN KEY (`bid`) REFERENCES `books` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` varchar(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `debt` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `authority` tinyint(1) NOT NULL DEFAULT '0',
+  `remember_token` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`),
+  KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TRIGGER IF EXISTS `lend a book`;
+CREATE TRIGGER `lend a book` BEFORE INSERT ON `lent` FOR EACH ROW
+BEGIN
+  SET NEW.due_at = DATE_ADD(CURRENT_TIMESTAMP, INTERVAL 1 MONTH);
+  UPDATE books_info SET books_info.available = books_info.available - 1;
+END;
+
+
+DROP TRIGGER IF EXISTS `return a book`;
+CREATE TRIGGER `return a book` BEFORE INSERT ON `returned` FOR EACH ROW 
+BEGIN
+  SET NEW.lent_at = (SELECT lent.lent_at FROM lent WHERE lent.uid = NEW.uid and lent.bid = NEW.bid);
+  DELETE FROM lent WHERE lent.uid = NEW.uid and lent.bid = NEW.bid;
+  UPDATE books_info SET books_info.available = books_info.available + 1;
+END;
+
+
+DROP VIEW IF EXISTS `index_books`;
+CREATE VIEW `index_books` AS
+select `books_info`.`isbn` AS `isbn`,`books_info`.`title` AS `title`,`categories`.`name` AS `category`,`books_info`.`total` AS `total`,`books_info`.`available` AS `available`
+from (`books_info` join `categories`)
+where (`books_info`.`category` = `categories`.`id`);
+
+
+DROP PROCEDURE IF EXISTS `query_records`;
+CREATE PROCEDURE `query_records`(IN rid VARCHAR(15))
+BEGIN
+  SELECT books_info.isbn, books_info.title, lent_at AS borrow_at, due_at AS due_at
+  FROM users, books, books_info, lent
+  WHERE users.id = rid and users.id = lent.uid and books.id = lent.bid and books.isbn = books_info.isbn;
+  SELECT books_info.isbn, books_info.title, lent_at AS borrow_at, returned_at AS return_at
+  FROM users, books, books_info, returned
+  WHERE users.id = rid and users.id = returned.uid and books.id = returned.bid and books.isbn = books_info.isbn;
+END;
+
+
+SET FOREIGN_KEY_CHECKS = 1;
+```
 
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
