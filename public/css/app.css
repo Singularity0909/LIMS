@@ -19833,7 +19833,6 @@ section.user_info h1 {
 }
 
 .title {
-  opacity: 1;
   text-shadow: 5px 5px 5px #333333;
   text-align: center;
 }
@@ -19852,14 +19851,14 @@ section.user_info h1 {
 }
 
 .index-list {
-  border-style: dashed;
+  border-style: solid;
   border-width: 2px;
   border-color: gray;
 }
 
 .info-list {
   margin-top: 20px;
-  border-style: dashed;
+  border-style: solid;
   border-width: 2px;
   border-color: gray;
 }
