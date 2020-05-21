@@ -19821,15 +19821,15 @@ section.user_info h1 {
 .welcome {
   color: #ffff00;
   margin-top: 50px;
-  opacity: 0.5;
+  opacity: 0.75;
   background: linear-gradient(to right, #3399CC, #00CCFF);
-  border-style: dashed;
+  border-style: none;
   border-width: 2px;
   border-color: white;
 }
 
 .welcome:hover {
-  opacity: 0.7;
+  /*opacity: 0.7;*/
 }
 
 .title {
@@ -19838,11 +19838,11 @@ section.user_info h1 {
   text-align: center;
 }
 
-.update-user-btn {
+.update-btn {
   margin-right: 10px;
 }
 
-.create-user-btn {
+.create-btn {
   margin-right: 20px;
 }
 
@@ -19857,7 +19857,7 @@ section.user_info h1 {
   border-color: gray;
 }
 
-.user-info-list {
+.info-list {
   margin-top: 20px;
   border-style: dashed;
   border-width: 2px;

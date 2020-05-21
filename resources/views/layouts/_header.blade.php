@@ -3,6 +3,12 @@
     <a class="navbar-brand fa fa-home fa-lg logo" href="{{ route('home') }}"> LIMS</a>
     <ul class="navbar-nav justify-content-end">
       @if (Auth::check())
+        @if (in_array(App\Models\User::getRole(Auth::user()), ['Superuser', 'Books admin']))
+          <li class="nav-item"><a class="nav-link fa fa-wrench fa-lg" href="{{ route('indexBooks') }}"> Manage books</a></li>
+          <li class="nav-item"><a class="nav-link fa fa-wrench fa-lg" href="{{ route('indexCategories') }}"> Manage categories</a></li>
+        @else
+          <li class="nav-item"><a class="nav-link fa fa-book fa-lg" href="{{ route('indexBooks') }}"> Index books</a></li>
+        @endif
         @if (in_array(App\Models\User::getRole(Auth::user()), ['Superuser', 'Readers admin']))
           <li class="nav-item"><a class="nav-link fa fa-wrench fa-lg" href="{{ route('indexReaders') }}"> Manage readers</a></li>
         @endif

@@ -2,7 +2,7 @@
   <img src="{{ $user->gravatar('140') }}" alt="{{ $user->name }}" class="gravatar"/>
 </a>
 <h1>{{ $user->name }}</h1>
-<ul class="list-group text-left user-info-list">
+<ul class="list-group text-left info-list">
   <li class="list-group-item list-group-item-action">
     <i class="fa fa-mortar-board fa-fw"></i>
     &nbsp;&nbsp;ID: {{ $user->id }}

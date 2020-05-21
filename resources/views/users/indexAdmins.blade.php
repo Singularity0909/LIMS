@@ -5,7 +5,7 @@
 <div class="offset-md-2 col-md-8">
   <div class="index-title">
     <form action="{{ route('createAdmin') }}" method="get">
-      <button type="submit" class="btn btn-m btn-info create-user-btn">
+      <button type="submit" class="btn btn-m btn-info create-btn">
         <i class="fa fa-plus"></i> Create</a>
       </button>
     </form>

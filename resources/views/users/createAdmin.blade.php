@@ -44,7 +44,7 @@
           <input type="password" name="password_confirmation" class="form-control" value="{{ old('password_confirmation') }}">
         </div>
 
-        <div class="form-group">
+        <div class="form-group form-control">
           <label for="authority">Authority: </label>
           <label class="radio-inline">
             <input type="radio" value=1 name="authority" checked>  Manage books

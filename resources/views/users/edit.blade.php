@@ -52,7 +52,7 @@
           </div>
 
           @if (App\Models\User::getRole(Auth::user()) == 'Superuser' and App\Models\User::getRole($user) != 'Superuser')
-            <div class="form-group">
+            <div class="form-group form-control">
               <label for="authority">Authority: </label>
               <label class="radio-inline">
                 <input type="radio" value=1 name="authority">  Manage books
