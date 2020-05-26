@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Category;
+use App\Models\Book;
+use App\Models\BookInfo;
+use App\Models\Lent;
+use App\Models\Returned;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
-class CategoriesController extends Controller
+class ReturnedController extends Controller
 {
     public function __construct()
     {
@@ -19,52 +23,49 @@ class CategoriesController extends Controller
 
     public function create()
     {
-        if (in_array(User::getRole(Auth::user()), ['Superuser', 'Books admin']))
-            return view('categories.create');
-        return redirect()->route('home');
+        return view('returned.create');
     }
 
     public function index()
     {
-        $categories = DB::table('categories')->paginate(10);
-        return view('categories.index', compact('categories'));
-    }
-
-    public function edit(Category $category)
-    {
-        if (in_array(User::getRole(Auth::user()), ['Superuser', 'Books admin']))
-            return view('categories.edit', compact('category'));
-        return redirect()->route('home');
+        $categories = DB::table('returned')->paginate(10);
+        return view('returned.index', compact('returned'));
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|max:20',
+            'bid' => 'required|max:10',
         ]);
-        $category = Category::create([
-            'name' => $request->name,
+        if (Book::where('id', '=', $request->bid)->exists() == 0) {
+            session()->flash('warning', 'This book doesn\'t exist.');
+            return back();
+        }
+        $lent = Lent::where('uid', '=', Auth::user()->id)->where('bid', '=', $request->bid)->first();
+        if (empty($lent)) {
+            session()->flash('warning', 'You have not borrowed this book.');
+            return back();
+        }
+        Returned::create([
+            'uid' => $lent->uid,
+            'bid' => $lent->bid,
+            'lent_at' => $lent->lent_at,
+            'returned_at' => Carbon::now(),
         ]);
-        session()->flash('success', 'Creation succeeded.');
-        return redirect()->route('categories.index');
+        $lent->delete();
+        $book = Book::where('id', '=', $request->bid)->first();
+        $bookInfo = BookInfo::where('isbn', '=', $book->isbn)->first();
+        $bookInfo->update([
+            'available' => $bookInfo->available + 1,
+        ]);
+        session()->flash('success', 'Returning succeeded.');
+        return redirect()->route('home');
     }
 
-    public function update(Category $category, Request $request)
+    public function destroy(Lent $lent)
     {
-        $this->validate($request, [
-            'name' => 'required|max:20',
-        ]);
-        $category->update([
-            'name' => $request->name,
-        ]);
-        session()->flash('success', 'Update succeeded.');
-        return redirect()->route('categories.index');
-    }
-
-    public function destroy(Category $category)
-    {
-        if (in_array(User::getRole(Auth::user()), ['Superuser', 'Books admin'])) {
-            $category->delete();
+        if (in_array(User::getRole(Auth::user()), ['Superuser', 'Readers admin'])) {
+            $lent->delete();
             session()->flash('success', 'Deletion succeeded.');
             return back();
         }

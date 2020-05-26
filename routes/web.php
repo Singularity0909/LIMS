@@ -26,3 +26,5 @@ Route::resource('lent', 'LentController');
 Route::get('return', 'ReturnedController@create')->name('createReturned');
 Route::get('indexReturned', 'ReturnedController@index')->name('indexReturned');
 Route::resource('returned', 'ReturnedController');
+
+Route::resource('records', 'RecordsController');

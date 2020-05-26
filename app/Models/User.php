@@ -12,6 +12,8 @@ class User extends Authenticatable
 
     public $timestamps = false;
 
+    public $incrementing = false;
+
     /**
      * The attributes that are mass assignable.
      *
