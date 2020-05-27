@@ -63,12 +63,40 @@ class LentController extends Controller
         return redirect()->route('home');
     }
 
-    public function destroy(Lent $lent)
+    public function edit(Lent $lent)
     {
-        if (in_array(User::getRole(Auth::user()), ['Superuser', 'Readers admin'])) {
-            $lent->delete();
-            session()->flash('success', 'Deletion succeeded.');
+        if ($lent->renewed == 0)
+        {
+            $newTime = (new Carbon($lent->due_at))->addMonth(1);
+            $lent->update([
+                'due_at' => $newTime,
+                'renewed' => 1,
+            ]);
+            session()->flash('success', 'Renewal succeeded.');
             return back();
         }
+        return redirect()->route('home');
+    }
+
+    public function destroy(Lent $lent)
+    {
+        if ((Auth::user()->id == $lent->uid) || in_array(User::getRole(Auth::user()), ['Superuser', 'Readers admin']))
+        {
+            $user = User::where('id', '=', $lent->uid)->first();
+            $book = Book::where('id', '=', $lent->bid)->first();
+            $bookInfo = BookInfo::where('isbn', '=', $book->isbn)->first();
+            $lent->delete();
+            $book->delete();
+            $bookInfo->update([
+                'available' => $bookInfo->available - 1,
+                'total' => $bookInfo->total - 1,
+            ]);
+            $user->update([
+                'debt' => $user->debt + $bookInfo->price,
+            ]);
+            session()->flash('success', 'Report succeeded.');
+            return back();
+        }
+        return redirect()->route('home');
     }
 }

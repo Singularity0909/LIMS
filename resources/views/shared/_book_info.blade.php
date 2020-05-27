@@ -19,7 +19,23 @@
     <i class="fa fa-building fa-fw"></i>
     &nbsp;&nbsp;Publisher: {{ $book->publisher }}
   </li>
-  <li class="list-group-item">
+  <li class="list-group-item list-group-item-action">
+    <i class="fa fa-dollar fa-fw"></i>
+    &nbsp;&nbsp;Price: {{ $book->price }}
+  </li>
+  <li class="list-group-item list-group-item-action">
+    <i class="fa fa-hourglass-1 fa-fw"></i>
+    &nbsp;&nbsp;Total: {{ $book->total }}
+  </li>
+  <li class="list-group-item list-group-item-action">
+    <i class="fa fa-hourglass-2 fa-fw"></i>
+    &nbsp;&nbsp;Available: {{ $book->available }}
+  </li>
+  <li class="list-group-item list-group-item-action">
+    <i class="fa fa-location-arrow fa-fw"></i>
+    &nbsp;&nbsp;Location: {{ $book->location }}
+  </li>
+    <li class="list-group-item">
     <button class="list-group-item pay-btn" data-toggle="modal" data-target="#cover">
       <i class="fa fa-photo fa-fw"></i>
       &nbsp;&nbsp;Cover
@@ -58,21 +74,5 @@
         </div>
       </div>
     </div>
-  </li>
-  <li class="list-group-item list-group-item-action">
-    <i class="fa fa-dollar fa-fw"></i>
-    &nbsp;&nbsp;Price: {{ $book->price }}
-  </li>
-  <li class="list-group-item list-group-item-action">
-    <i class="fa fa-hourglass-1 fa-fw"></i>
-    &nbsp;&nbsp;Total: {{ $book->total }}
-  </li>
-  <li class="list-group-item list-group-item-action">
-    <i class="fa fa-hourglass-2 fa-fw"></i>
-    &nbsp;&nbsp;Available: {{ $book->available }}
-  </li>
-  <li class="list-group-item list-group-item-action">
-    <i class="fa fa-location-arrow fa-fw"></i>
-    &nbsp;&nbsp;Location: {{ $book->location }}
   </li>
 </ul>
