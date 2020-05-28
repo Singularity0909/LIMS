@@ -59,15 +59,15 @@ class BooksController extends Controller
     {
         $this->validate($request, [
             'isbn' => 'required|integer|digits:13',
-            'title' => 'required|max:20',
+            'title' => 'required|max:50',
             'category' => 'required|integer',
-            'author' => 'required|max:20',
+            'author' => 'required|max:50',
             'publisher' => 'required|max:50',
             'cover' => 'max:255',
             'intro' => 'max:255',
             'price' => 'required|numeric|max:255',
             'amount' => 'required|integer',
-            'location' => 'required|max:20'
+            'location' => 'required|max:50'
         ]);
 
         $book = BookInfo::where('isbn', '=', $request->isbn)->first();
@@ -107,14 +107,14 @@ class BooksController extends Controller
     public function update(BookInfo $book, Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:20',
+            'title' => 'required|max:50',
             'category' => 'required|integer',
-            'author' => 'required|max:20',
+            'author' => 'required|max:50',
             'publisher' => 'required|max:50',
             'cover' => 'max:255',
             'intro' => 'max:255',
             'price' => 'required|numeric|max:255',
-            'location' => 'required|max:20'
+            'location' => 'required|max:50'
         ]);
         $book->update([
             'title' => $request->title,

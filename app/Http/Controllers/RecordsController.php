@@ -26,7 +26,7 @@ class RecordsController extends Controller
         $isbn = $request->input('isbn');
         $uid = $request->input('uid');
         $type = $request->input('type');
-        if ((Auth::user()->id == $uid) || in_array(User::getRole(Auth::user()), ['Superuser', 'Readers admin']))
+        if ((Auth::user()->id == $uid) || in_array(User::getRole(Auth::user()), ['Superuser', 'Books admin']))
         {
             if ($isbn && $type == 1)
             {

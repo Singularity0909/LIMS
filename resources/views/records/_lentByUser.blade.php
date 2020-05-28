@@ -17,7 +17,7 @@
       @else
         <button type="submit" class="btn btn-sm btn-success">
       @endif
-        <i class="fa fa-plus"></i> Renew</a>
+        <i class="fa fa-plus fa-fw"></i> Renew</a>
       </button>
     </form>
   </td>
@@ -26,7 +26,7 @@
       {{ csrf_field() }}
       {{ method_field('DELETE') }}
       <button type="submit" class="btn btn-sm btn-danger">
-        <i class="fa fa-minus"></i> Report loss</a>
+        <i class="fa fa-minus fa-fw"></i> Report loss</a>
       </button>
     </form>
   </td>

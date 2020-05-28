@@ -2,7 +2,12 @@
 @section('title', 'Returned records')
 
 @section('content')
-  <h3 class="mb-4">Returned records of {{ App\Models\BookInfo::where('isbn', '=', $isbn)->first()->title }}</h3>
+  <h3 class="mb-4">
+    Returned records of
+    <a href="{{ route('books.show', $isbn) }}">
+      {{ App\Models\BookInfo::where('isbn', '=', $isbn)->first()->title }}
+    </a>
+  </h3>
   <table class="table table-hover bg-light">
     <thead>
       <tr>
