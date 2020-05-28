@@ -75,7 +75,7 @@
       </div>
     </div>
   </li>
-  @if (in_array(App\Models\User::getRole(Auth::user()), ['Superuser', 'Books admin']))
+  @if (in_array(App\Models\User::getRole(Auth::user()), ['Superuser', 'Books admin', 'Readers admin']))
     <li class="list-group-item">
       <a href="{{ route('records.index', array('isbn' => $book->isbn, 'type' => '1')) }}">
         <button class="list-group-item pay-btn">
