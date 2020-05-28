@@ -38,11 +38,11 @@
     <i class="fa fa-user-o fa-fw"></i>
     &nbsp;&nbsp;Role: {{ App\Models\User::getRole($user) }}
   </li>
-  <a class="list-group-item list-group-item-action" href="{{ route('records.show', $user->id . 1) }}">
+  <a class="list-group-item list-group-item-action" href="{{ route('records.index', array('uid' => $user->id, 'type' => '1')) }}">
     <i class="fa fa-history fa-fw"></i>
     &nbsp;&nbsp;Borrowed records
   </a>
-  <a class="list-group-item list-group-item-action" href="{{ route('records.show', $user->id . 2) }}">
+  <a class="list-group-item list-group-item-action" href="{{ route('records.index', array('uid' => $user->id, 'type' => '2')) }}">
     <i class="fa fa-history fa-fw"></i>
     &nbsp;&nbsp;Returned records
   </a>

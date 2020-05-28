@@ -29,16 +29,14 @@ class BooksController extends Controller
         return redirect()->route('home');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        if (@$_GET['category'] && @$_GET['keywords'])
-            $books = BookInfo::where('category', '=', $_GET['category'])->where('title', 'like', '%' . $_GET['keywords'] . '%')->paginate(10);
-        else if (@$_GET['keywords'])
-            $books = BookInfo::where('title', 'like', '%'.$_GET['keywords'].'%')->paginate(10);
-        else if (@$_GET['category'])
-            $books = BookInfo::where('category', '=', $_GET['category'])->paginate(10);
-        else
-            $books = DB::table('books_info')->paginate(10);
+        $books = DB::table('books_info');
+        if ($request->input('category'))
+            $books = $books->where('category', '=', $_GET['category']);
+        if ($request->input('keywords'))
+            $books = $books->where('title', 'like', '%' . $_GET['keywords'] . '%');
+        $books = $books->paginate(10);
         return view('books.index', compact('books'));
     }
 

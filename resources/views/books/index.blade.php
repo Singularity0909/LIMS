@@ -7,33 +7,31 @@
 
 @section('content')
 <div>
-  <div class="index-title">
+  <div class="index-title mb-2">
     @if (in_array(App\Models\User::getRole(Auth::user()), ['Superuser', 'Books admin']))
       <form action="{{ route('createBook') }}" method="get">
         <button type="submit" class="btn btn-m btn-info create-btn">
-          <i class="fa fa-plus"></i> Create</a>
+          <i class="fa fa-plus"></i>
         </button>
       </form>
     @endif
-    <h2 class="mb-4"> All books</h2>
+    <form action="" method="get">
+      <table class="search_tab mb-2">
+        <tr>
+          <td>
+            <select name="category" class="form-control">
+              <option value="">All categories</option>
+              @foreach(App\Models\Category::all() as $category)
+                <option value="{{ $category->id }}">{{ $category->name }}</option>
+              @endforeach
+            </select>
+          </td>
+          <td><input type="text" name="keywords" class="form-control" placeholder="Title"></td>
+          <td><button type="submit" class="fa fa-search form-control"></td>
+        </tr>
+      </table>
+    </form>
   </div>
-
-  <form action="" method="get">
-    <table class="search_tab mb-3">
-      <tr>
-        <td>
-          <select name="category" class="form-control">
-            <option value="">All categories</option>
-            @foreach(App\Models\Category::all() as $category)
-              <option value="{{ $category->id }}">{{ $category->name }}</option>
-            @endforeach
-          </select>
-        </td>
-        <td><input type="text" name="keywords" class="form-control" placeholder="Title"></td>
-        <td><button type="submit" class="fa fa-search form-control"> Search</td>
-      </tr>
-    </table>
-  </form>
 
   <table class="table table-hover bg-light">
     <thead>

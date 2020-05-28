@@ -3,13 +3,13 @@
 
 @section('content')
 <div>
-  <div class="index-title">
+  <div class="index-title mb-2">
     <form action="{{ route('createCategory') }}" method="get">
       <button type="submit" class="btn btn-m btn-info create-btn">
-        <i class="fa fa-plus"></i> Create</a>
+        <i class="fa fa-plus"></i>
       </button>
     </form>
-    <h2 class="mb-4"> All categories</h2>
+    <h2> All categories</h2>
   </div>
 
   <table class="table table-hover bg-light">

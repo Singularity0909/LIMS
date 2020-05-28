@@ -21,21 +21,32 @@ class RecordsController extends Controller
         ]);
     }
 
-    public function show($param)
+    public function index(Request $request)
     {
-        $uid = substr($param, 0, strlen($param) - 1);
-        $type = substr($param, -1);
+        $isbn = $request->input('isbn');
+        $uid = $request->input('uid');
+        $type = $request->input('type');
         if ((Auth::user()->id == $uid) || in_array(User::getRole(Auth::user()), ['Superuser', 'Readers admin']))
         {
-            if ($type == 1)
+            if ($isbn && $type == 1)
+            {
+                $records = DB::select("SELECT books.id AS bid, users.id AS uid, name, lent_at, due_at FROM users, books, books_info, lent WHERE books.isbn = :isbn AND users.id = lent.uid AND books.id = lent.bid AND books.isbn = books_info.isbn ORDER BY lent_at", ['isbn' => $isbn]);
+                return view('records.lentByBook', compact('records', 'isbn'));
+            }
+            else if ($isbn && $type == 2)
+            {
+                $records = DB::select("SELECT books.id AS bid, users.id AS uid, name, lent_at, returned_at FROM users, books, books_info, returned WHERE books.isbn = :isbn AND users.id = returned.uid AND books.id = returned.bid AND books.isbn = books_info.isbn ORDER BY lent_at", ['isbn' => $isbn]);
+                return view('records.returnedByBook', compact('records', 'isbn'));
+            }
+            else if ($type == 1)
             {
                 $records = DB::select("SELECT books.id AS bid, books_info.isbn AS isbn, title, lent_at, due_at, renewed FROM users, books, books_info, lent WHERE users.id = :uid AND users.id = lent.uid AND books.id = lent.bid AND books.isbn = books_info.isbn ORDER BY lent_at", ['uid' => $uid]);
-                return view('records.lent', compact('records', 'uid'));
+                return view('records.lentByUser', compact('records', 'uid'));
             }
             else
             {
                 $records = DB::select("SELECT books.id AS bid, books_info.isbn AS isbn, title, lent_at, returned_at FROM users, books, books_info, returned WHERE users.id = :uid AND users.id = returned.uid AND books.id = returned.bid AND books.isbn = books_info.isbn ORDER BY lent_at", ['uid' => $uid]);
-                return view('records.returned', compact('records', 'uid'));
+                return view('records.returnedByUser', compact('records', 'uid'));
             }
         }
         return redirect()->route('home');

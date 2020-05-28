@@ -1,7 +1,11 @@
 <tr>
   <td>{{ $category->id }}</td>
   <td>{{ $category->name }}</td>
-  <td>{{ App\Models\BookInfo::where('category', '=', $category->id)->count() }}</td>
+  <td>
+    <a href="{{ route('books.index', array('category' => $category->id)) }}">
+      {{ App\Models\BookInfo::where('category', '=', $category->id)->count() }}
+    </a>
+  </td>
   <td>
     <form action="{{ route('categories.destroy', $category->id) }}" method="post" class="float-right">
       {{ csrf_field() }}

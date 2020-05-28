@@ -29,21 +29,38 @@ class UsersController extends Controller
         return redirect()->route('home');
     }
 
-    public function indexReaders()
+    public function indexReaders(Request $request)
     {
         if (in_array(User::getRole(Auth::user()), ['Superuser', 'Readers admin']))
         {
-            $users = User::where('authority', '0')->paginate(10);
+            $id = $request->input('id');
+            $name = $request->input('name');
+            $users = User::where('authority', '0');
+            if ($id)
+                $users = $users->where('id', '=', $id);
+            if ($name)
+                $users = $users->where('name', 'like', '%' . $name . '%');
+            $users = $users->paginate(10);
             return view('users.indexReaders', compact('users'));
         }
         return redirect()->route('home');
     }
 
-    public function indexAdmins()
+    public function indexAdmins(Request $request)
     {
         if (User::getRole(Auth::user()) == 'Superuser')
         {
-            $users = User::where('authority', '>=', '1')->paginate(10);
+            $role = $request->input('role');
+            $id = $request->input('id');
+            $name = $request->input('name');
+            $users = User::where('authority', '>=', '1');
+            if ($role)
+                $users = $users->where('authority', '=', $role);
+            if ($id)
+                $users = $users->where('id', '=', $id);
+            if ($name)
+                $users = $users->where('name', 'like', '%' . $name . '%');
+            $users = $users->paginate(10);
             return view('users.indexAdmins', compact('users'));
         }
         return redirect()->route('home');
