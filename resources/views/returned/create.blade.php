@@ -5,7 +5,7 @@
 <div class="offset-md-2 col-md-8">
   <div class="card">
     <div class="card-header">
-      <h5>Return a book</h5>
+      <h5>Return a book (simulation)</h5>
     </div>
     <div class="card-body">
 
