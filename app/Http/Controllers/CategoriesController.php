@@ -63,9 +63,15 @@ class CategoriesController extends Controller
 
     public function destroy(Category $category)
     {
-        if (in_array(User::getRole(Auth::user()), ['Superuser', 'Books admin'])) {
-            $category->delete();
-            session()->flash('success', 'Deletion succeeded.');
+        if (in_array(User::getRole(Auth::user()), ['Superuser', 'Books admin']))
+        {
+            if (BookInfo::where('category', '=', $category->id)->count())
+                session()->flash('danger', 'Books exist under this category.');
+            else
+            {
+                $category->delete();
+                session()->flash('success', 'Deletion succeeded.');
+            }
             return back();
         }
     }

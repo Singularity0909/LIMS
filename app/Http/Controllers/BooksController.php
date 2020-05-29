@@ -132,7 +132,17 @@ class BooksController extends Controller
 
     public function destroy(BookInfo $book)
     {
-        if (in_array(User::getRole(Auth::user()), ['Superuser', 'Books admin'])) {
+        if (in_array(User::getRole(Auth::user()), ['Superuser', 'Books admin']))
+        {
+            $books = Book::where('isbn', '=', $book->isbn);
+            foreach ($books as $each)
+            {
+                if (Lent::where('bid', '=', $each->id))
+                {
+                    session()->flash('danger', 'Borrowed records of this book exist');
+                    return back();
+                }
+            }
             $book->delete();
             session()->flash('success', 'Deletion succeeded.');
             return back();
