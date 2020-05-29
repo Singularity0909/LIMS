@@ -2,7 +2,7 @@
 @section('title', 'Borrowed records')
 
 @section('content')
-  <h3 class="mb-4">
+  <h3 class="mb-4 font-weight-bold">
     Returned records of
     <a href="{{ route('users.show', $uid) }}">
       {{ App\Models\User::where('id', '=', $uid)->first()->name }}

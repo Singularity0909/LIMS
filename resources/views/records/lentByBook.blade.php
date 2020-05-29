@@ -2,7 +2,7 @@
 @section('title', 'Borrowed records')
 
 @section('content')
-  <h3 class="mb-4">
+  <h3 class="mb-4 font-weight-bold">
     Borrowed records of
     <a href="{{ route('books.show', $isbn) }}">
       {{ App\Models\BookInfo::where('isbn', '=', $isbn)->first()->title }}

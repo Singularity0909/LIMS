@@ -88,7 +88,6 @@ class LentController extends Controller
             $lent->delete();
             $book->delete();
             $bookInfo->update([
-                'available' => $bookInfo->available - 1,
                 'total' => $bookInfo->total - 1,
             ]);
             $user->update([

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Book;
 use App\Models\BookInfo;
 use App\Models\Category;
+use App\Models\Lent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -134,12 +135,12 @@ class BooksController extends Controller
     {
         if (in_array(User::getRole(Auth::user()), ['Superuser', 'Books admin']))
         {
-            $books = Book::where('isbn', '=', $book->isbn);
+            $books = Book::where('isbn', '=', $book->isbn)->get();
             foreach ($books as $each)
             {
-                if (Lent::where('bid', '=', $each->id))
+                if (Lent::where('bid', '=', $each->id)->count())
                 {
-                    session()->flash('danger', 'Borrowed records of this book exist');
+                    session()->flash('danger', 'Borrowed records of this book exist.');
                     return back();
                 }
             }

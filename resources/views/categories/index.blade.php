@@ -9,7 +9,7 @@
         <i class="fa fa-plus"></i>
       </button>
     </form>
-    <h2> All categories</h2>
+    <h2 class="font-weight-bold"> All categories</h2>
   </div>
 
   <table class="table table-hover bg-light">
