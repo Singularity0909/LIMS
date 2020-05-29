@@ -21,18 +21,20 @@ class SessionsController extends Controller
 
     public function store(Request $request)
     {
-       $credentials = $this->validate($request, [
+        $credentials = $this->validate($request, [
            'id' => 'required|max:255',
            'password' => 'required'
-       ]);
+        ]);
 
-       if (Auth::attempt($credentials, $request->has('remember'))) {
-           session()->flash('success', 'Welcome back!');
-           return redirect()->route('users.show', [Auth::user()]);
-       } else {
-           session()->flash('danger', 'Sorry, your ID and password mismatch.');
-           return redirect()->back()->withInput();
-       }
+        if (Auth::attempt($credentials, $request->has('remember'))) {
+            session()->flash('success', 'Welcome back!');
+            if (Auth::user()->debt > 0)
+                session()->flash('warning', 'Please pay off your debt.');
+            return redirect()->route('users.show', [Auth::user()]);
+        } else {
+            session()->flash('danger', 'Sorry, your ID and password mismatch.');
+            return redirect()->back()->withInput();
+        }
     }
 
     public function destroy()
