@@ -10,8 +10,6 @@ Peking University Library does this well. Here is the URL of their lending rules
 
 https://www.lib.pku.edu.cn/portal/cn/jy/jybl/jiehuanxujie
 
-![](https://cdn.jsdelivr.net/gh/singularity0909/cdn@latest/img/screenshot/pku-library.png)
-
 As you can see, readers get self-service in most cases. Readers search for and order books online, and come to library to fetch books with scanning their reader cards and barcode on books. After that, they can renew books online at any time if permitted.
 
 There are some patterns we can learn from. Library staff has no need to deal with books lending and return in person, which can be handled by the software system.
@@ -91,6 +89,7 @@ According to the demand analysis, we provide a diagram of the system overall fun
 | 21     | Lent_at      | Date and time when a user borrow a book             | Timestamp        |        |
 | 22     | Due_at       | Due time when a user need to return a book          | Timestamp        |        |
 | 23     | Returned_at  | Date and time when a user return a book             | Timestamp        |        |
+| 24     | Renewed      | Whether the book has been renewed                   | Integer          | 1      |
 
 #### Data structures
 
@@ -194,9 +193,9 @@ According to the demand analysis, we provide a diagram of the system overall fun
 
 - categories (<u>id</u>, name)
 
-- lent (<u>uid</u>, <u>bid</u>, lent_at, due_at)
+- lent (uid, <u>bid</u>, <u>lent_at</u>, due_at, renewed)
 
-- returned (<u>uid</u>, <u>bid</u>, lent_at, returned_at)
+- returned (uid, <u>bid</u>, lent_at, <u>returned_at</u>)
 
 #### Tables with fields
 
@@ -245,19 +244,20 @@ According to the demand analysis, we provide a diagram of the system overall fun
 
 | Number | Name    | Meaning                                    | Type      | Length | Primary key |
 | ------ | ------- | ------------------------------------------ | --------- | ------ | ----------- |
-| 1      | uid     | To identify a user                         | varchar   | 15     | ✔           |
+| 1      | uid     | To identify a user                         | varchar   | 15     |             |
 | 2      | bid     | To identify a book                         | int       | 10     | ✔           |
-| 3      | lent_at | Date and time when a user borrow a book    | timestamp |        |             |
+| 3      | lent_at | Date and time when a user borrow a book    | timestamp |        | ✔           |
 | 4      | due_at  | Due time when a user need to return a book | timestamp |        |             |
+| 5      | renewed | Whether the book has been renewed          | tinyint   | 1      |             |
 
 **returned**
 
 | Number | Name        | Meaning                                 | Type      | Length | Primary key |
 | ------ | ----------- | --------------------------------------- | --------- | ------ | ----------- |
-| 1      | uid         | To identify a user                      | varchar   | 15     | ✔           |
+| 1      | uid         | To identify a user                      | varchar   | 15     |             |
 | 2      | bid         | To identify a book                      | int       | 10     | ✔           |
 | 3      | lent_at     | Date and time when a user borrow a book | timestamp |        |             |
-| 4      | returned_at | Date and time when a user return a book | timestamp |        |             |
+| 4      | returned_at | Date and time when a user return a book | timestamp |        | ✔           |
 
 ### Physical framework design
 
