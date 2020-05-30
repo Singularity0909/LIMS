@@ -384,7 +384,7 @@ BEGIN
   SELECT books.id AS bid, books_info.isbn AS isbn, title, lent_at, due_at
   FROM users, books, books_info, lent
   WHERE users.id = uid AND users.id = lent.uid AND books.id = lent.bid AND books.isbn = books_info.isbn;
-	
+  
   SELECT books.id AS bid, books_info.isbn AS isbn, title, lent_at, returned_at
   FROM users, books, books_info, returned
   WHERE users.id = uid AND users.id = returned.uid AND books.id = returned.bid AND books.isbn = books_info.isbn;
@@ -398,18 +398,18 @@ DROP PROCEDURE IF EXISTS `update_debt`;
 delimiter $$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `update_debt`()
 BEGIN
-	DECLARE done INT DEFAULT 0;
-	DECLARE uid VARCHAR(15);
-	DECLARE cur CURSOR FOR SELECT view_overdue.id FROM view_overdue;
-	DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1;
-	OPEN cur;
-	REPEAT
-		FETCH cur INTO uid;
-		if done != 1 THEN
-			UPDATE users SET debt = debt + 0.5 WHERE users.id = uid;
-		END IF;
-	UNTIL done END REPEAT;
-	CLOSE cur;
+  DECLARE done INT DEFAULT 0;
+  DECLARE uid VARCHAR(15);
+  DECLARE cur CURSOR FOR SELECT view_overdue.id FROM view_overdue;
+  DECLARE CONTINUE HANDLER FOR SQLSTATE '02000' SET done = 1;
+  OPEN cur;
+  REPEAT
+    FETCH cur INTO uid;
+    if done != 1 THEN
+      UPDATE users SET debt = debt + 0.5 WHERE users.id = uid;
+    END IF;
+  UNTIL done END REPEAT;
+  CLOSE cur;
 END$$
 delimiter ;
 
