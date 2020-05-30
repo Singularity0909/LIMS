@@ -275,7 +275,7 @@ CREATE TABLE `books` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `id` (`id`),
   KEY `isbn` (`isbn`),
-  CONSTRAINT `books_fk_1` FOREIGN KEY (`isbn`) REFERENCES `books_info` (`isbn`) ON UPDATE CASCADE
+  CONSTRAINT `books_fk_1` FOREIGN KEY (`isbn`) REFERENCES `books_info` (`isbn`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
