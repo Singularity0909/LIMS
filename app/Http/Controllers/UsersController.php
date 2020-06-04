@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Lent;
 use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
@@ -134,6 +135,11 @@ class UsersController extends Controller
 
     public function destroy(User $user)
     {
+        if (Lent::where('uid', '=', $user->id)->count())
+        {
+            session()->flash('danger', 'Borrowed records of this user exist.');
+            return back();
+        }
         $this->authorize('destroy', $user);
         $user->delete();
         session()->flash('success', 'Deletion succeeded.');
